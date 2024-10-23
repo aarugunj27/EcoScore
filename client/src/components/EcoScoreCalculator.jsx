@@ -11,7 +11,7 @@ const EcoScoreCalculator = () => {
     e.preventDefault();
     setLoading(true);
 
-    axios.post("http://localhost:5000/generate-eco-score", {
+    axios.post("http://localhost:5000/api/generate-eco-score", {
       positiveActions,
       negativeActions,
     })

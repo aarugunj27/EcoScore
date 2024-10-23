@@ -1,17 +1,12 @@
 const express = require("express");
 const axios = require("axios");
-const cors = require("cors");
-require("dotenv").config(); // Load environment variables
-
-const app = express();
-const PORT = 5000;
-
-// Middleware
-app.use(cors());
-app.use(express.json()); // for parsing application/json
+const router = express.Router();
 
 // POST endpoint to generate Eco Score
-app.post("/generate-eco-score", (req, res) => {
+router.post("/generate-eco-score", (req, res) => {
+  console.log("POST /api/generate-eco-score hit");
+  console.log("Request body:", req.body); // Log the incoming request
+
   const { positiveActions, negativeActions } = req.body;
 
   const prompt = `
@@ -41,6 +36,4 @@ app.post("/generate-eco-score", (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+module.exports = router;
