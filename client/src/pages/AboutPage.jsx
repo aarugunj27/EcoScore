@@ -1,41 +1,33 @@
-import React from 'react';
-import '../assets/css/style.css'
+import React from "react";
+import "../assets/css/style.css";
 
 //import About from '../components/About';
 
 function AboutPage() {
   return (
-    <div class="body">
-      <section className="bg-zinc-100 dark:bg-zinc-800 relative">
-        <h1>Nice Curves</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt atque
-          consequatur sed dolor rerum quidem fugiat enim harum quam asperiores
-          ex saepe ipsum autem, numquam mollitia nemo! Ab, accusamus excepturi.
-        </p>
-      </section>
-      <section className="bg-zinc-200 dark:bg-zinc-700 relative">
-        <h1>Nice Curves</h1>
-        <p>
-          Omnis ab, illo facere neque expedita doloribus vel voluptatum
-          accusamus aliquid ex deleniti, tenetur blanditiis reprehenderit.
-          Minima omnis distinctio iure architecto culpa. Eius eligendi dolor,
-          ducimus minus est aliquid harum.
-        </p>
-        <div class="custom-shape-divider-top-1728751592">
-          <svg
-            data-name="Layer 1"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
-              class="shape-fill"
-            ></path>
-          </svg>
-        </div>
-      </section>
+    <div class="max-w-2xl mx-auto p-6 bg-zinc-100 dark:bg-zinc-800 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-bold text-zinc-800 dark:text-zinc-200 mb-4">
+        About Eco Score the App
+      </h2>
+      <p class="text-zinc-700 dark:text-zinc-300 mb-4">
+        <strong>Eco Score the App</strong> is a user-friendly application
+        designed to empower individuals in their journey toward sustainability.
+        With a focus on reducing carbon footprints, the app provides a
+        straightforward scoring system that rates eco-friendly behaviors on a
+        scale from 1 to 10.
+      </p>
+      <p class="text-zinc-700 dark:text-zinc-300 mb-4">
+        Whether you're a sustainability novice or a seasoned eco-warrior, Eco
+        Score the App offers personalized insights and actionable tips to help
+        you make informed decisions about your daily habits. Users can track
+        their environmental impact, discover new ways to reduce waste, and
+        ultimately contribute to a healthier planet.
+      </p>
+      <p class="text-zinc-700 dark:text-zinc-300">
+        Our mission is to raise awareness about the importance of sustainable
+        living and to inspire positive change through engaging, easy-to-use
+        technology. Join us in making a difference—one score at a time!
+      </p>
     </div>
   );
 }

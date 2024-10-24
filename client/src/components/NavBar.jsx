@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'; // Sun and moon icons for dark mode toggle
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons"; // Sun and moon icons for dark mode toggle
 
 function NavBar() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Load dark mode preference from local storage on component mount
   useEffect(() => {
-    const savedMode = localStorage.getItem('darkMode') === 'true';
+    const savedMode = localStorage.getItem("darkMode") === "true";
     setIsDarkMode(savedMode);
     if (savedMode) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     }
   }, []);
 
   // Update the document class and local storage when dark mode is toggled
   useEffect(() => {
     if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('darkMode', 'true');
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("darkMode", "true");
     } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('darkMode', 'false');
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("darkMode", "false");
     }
   }, [isDarkMode]);
 
@@ -53,14 +53,6 @@ function NavBar() {
               className="relative text-zinc-900 dark:text-white bg-transparent hover:bg-transparent transition-opacity after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[2px] after:bg-zinc-900 dark:after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
             >
               Tracker
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/tips"
-              className="relative text-zinc-900 dark:text-white bg-transparent hover:bg-transparent transition-opacity after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[2px] after:bg-zinc-900 dark:after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
-            >
-              Tips
             </Link>
           </li>
           <li>

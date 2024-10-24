@@ -22,11 +22,3 @@
 .custom-shape-divider-top-1728751592 .shape-fill {
     fill: #94A3B8;
 }
-
-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 400px;
-    padding: 100px 20vw;
-}
