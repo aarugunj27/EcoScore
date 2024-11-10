@@ -1,141 +1,270 @@
-import React from "react";
-import { Link } from "react-router-dom"; // Make sure to import Link from react-router-dom
-import "animate.css"; // Import Animate.css
+import React, { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { Play, Calendar, ShoppingBag } from "lucide-react";
+import { WavyDivider, CurvyDivider } from "../components/ShapeDividers";
+import Typed from "typed.js";
+import Logo from "../assets/images/logo1.jpeg";
 
-function Home() {
+export default function Home() {
   return (
-    <div>
-      <section id="hero" className="bg-zinc-200 dark:bg-zinc-700 py-20">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h1 className="text-4xl font-bold text-zinc-800 dark:text-white mb-4 animate__animated animate__fadeIn">
-            Welcome to Eco Score the App
-          </h1>
-          <p className="text-lg text-zinc-600 dark:text-zinc-300 mb-8 animate__animated animate__fadeIn animate__delay-1s">
-            Discover your carbon footprint and learn how to reduce your
-            environmental impact through personalized tips and progress
-            tracking.
-          </p>
-          <Link
-            to="/tracker"
-            className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow-md hover:bg-blue-500 transition duration-300 animate__animated animate__fadeIn animate__delay-2s"
-          >
-            Get Started
-          </Link>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="bg-zinc-300 dark:bg-zinc-800 py-16">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-zinc-800 dark:text-white mb-8 animate__animated animate__fadeIn">
-            About Eco Score
-          </h2>
-          <p className="text-zinc-700 dark:text-zinc-300 mb-4 animate__animated animate__fadeIn animate__delay-1s">
-            Eco Score is designed to empower individuals to understand and
-            improve their environmental impact. By calculating your carbon
-            footprint and providing actionable tips, we aim to foster a
-            community focused on sustainability.
-          </p>
-          <p className="text-zinc-700 dark:text-zinc-300 mb-4 animate__animated animate__fadeIn animate__delay-2s">
-            Our app combines cutting-edge technology with user-friendly features
-            to help you track your progress. Whether you're a sustainability
-            novice or an eco-warrior, Eco Score provides the tools you need to
-            make a difference.
-          </p>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section id="features" className="bg-zinc-200 dark:bg-zinc-700 py-16">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-zinc-800 dark:text-white mb-8 animate__animated animate__fadeIn">
-            App Features
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link
-              to="/tracker"
-              className="bg-white dark:bg-zinc-600 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 cursor-pointer animate__animated animate__fadeInUp animate__delay-1s"
-            >
-              <h3 className="font-semibold text-zinc-800 dark:text-white mb-2 animate__animated animate__bounce">
-                Eco Score Calculator
-              </h3>
-              <p className="text-zinc-600 dark:text-zinc-300 mb-4">
-                Easily calculate your carbon footprint and discover personalized
-                strategies to improve your environmental impact.
-              </p>
-              <ul className="list-disc list-inside text-zinc-600 dark:text-zinc-300">
-                <li>Simple input interface for tracking daily activities</li>
-                <li>Visual representations of your score over time</li>
-                <li>Understand the impact of your choices</li>
-              </ul>
-            </Link>
-            <Link
-              to="/tracker"
-              className="bg-white dark:bg-zinc-600 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 cursor-pointer animate__animated animate__fadeInUp animate__delay-1s"
-            >
-              <h3 className="font-semibold text-zinc-800 dark:text-white mb-2 animate__animated animate__bounce">
-                Personalized Tips
-              </h3>
-              <p className="text-zinc-600 dark:text-zinc-300 mb-4">
-                Receive tailored suggestions based on your lifestyle and
-                preferences to help you make sustainable choices.
-              </p>
-              <ul className="list-disc list-inside text-zinc-600 dark:text-zinc-300">
-                <li>Weekly updates with new eco-friendly tips</li>
-                <li>Customizable goals to track your progress</li>
-                <li>Access to community challenges and rewards</li>
-              </ul>
-            </Link>
-            <Link
-              to="/tracker"
-              className="bg-white dark:bg-zinc-600 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 cursor-pointer animate__animated animate__fadeInUp animate__delay-1s"
-            >
-              <h3 className="font-semibold text-zinc-800 dark:text-white mb-2 animate__animated animate__bounce">
-                Progress Tracking
-              </h3>
-              <p className="text-zinc-600 dark:text-zinc-300 mb-4">
-                Monitor your eco-friendly actions and visualize your impact over
-                time with insightful graphs and statistics.
-              </p>
-              <ul className="list-disc list-inside text-zinc-600 dark:text-zinc-300">
-                <li>Monthly progress reports</li>
-                <li>Track your actions and see their cumulative effect</li>
-                <li>Stay motivated with goal-setting features</li>
-              </ul>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action Section */}
-      <section id="cta" className="bg-zinc-300 dark:bg-zinc-800 py-16">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-zinc-800 dark:text-white mb-8 animate__animated animate__fadeIn">
-            Join Us in Making a Difference
-          </h2>
-          <p className="text-zinc-700 dark:text-zinc-300 mb-4 animate__animated animate__fadeIn animate__delay-1s">
-            Are you ready to take the first step towards a more sustainable
-            lifestyle? Join the Eco Score community today and start tracking
-            your carbon footprint!
-          </p>
-          <Link
-            to="/tracker"
-            className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow-md hover:bg-blue-500 transition duration-300 animate__animated animate__fadeIn animate__delay-2s"
-          >
-            Start Your Journey
-          </Link>
-        </div>
-      </section>
-
-      <footer className="bg-zinc-800 dark:bg-zinc-900 py-4">
-        <div className="max-w-6xl mx-auto px-6">
-          <p className="text-white">
-            © 2024 Eco Score the App. All rights reserved.
-          </p>
-        </div>
-      </footer>
-    </div>
+    <>
+      <HeroSection />
+      <div className="relative">
+        <CurvyDivider fill="fill-zinc-100 dark:fill-zinc-800" height={150} />
+        <LatestRelease />
+      </div>
+      <div className="relative">
+        <CurvyDivider fill="fill-white dark:fill-zinc-700" height={100} />
+        <UpcomingTours />
+      </div>
+      <div className="relative">
+        <WavyDivider fill="fill-zinc-100 dark:fill-zinc-800" height={150} />
+        <br />
+        <br />
+        <br />
+        <MerchShowcase />
+      </div>
+    </>
   );
 }
 
-export default Home;
+function HeroSection() {
+  const el = useRef(null);
+
+  useEffect(() => {
+    const typed = new Typed(el.current, {
+      strings: [
+        "electrifying performances",
+        "unforgettable melodies",
+        "sold-out arenas",
+      ],
+      typeSpeed: 50,
+      backSpeed: 50,
+      loop: true,
+    });
+
+    return () => {
+      typed.destroy();
+    };
+  }, []);
+
+  return (
+    <section className="hero-section bg-zinc-100 dark:bg-zinc-800 py-16 md:py-24">
+      <div className="container mx-auto px-5">
+        <div className="flex flex-col md:flex-row justify-around items-center">
+          <div className="md:w-2/3 text-left mb-8 md:mb-0">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-zinc-900 dark:text-zinc-100 mb-6"
+            >
+              <strong>
+                Igniting the night with
+                <br />
+                <span className="text-sky-600 dark:text-sky-400">
+                  <span ref={el}></span>
+                </span>
+              </strong>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-2xl"
+            >
+              At Stage Fright, we bring the electrifying energy of live
+              performances directly to you. Experience the raw power of rock
+              music, discover new tracks, and connect with a community of
+              passionate music lovers. Get ready to be part of something
+              extraordinary.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <a
+                href="/tours"
+                className="bg-sky-600 text-white hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-600 px-8 py-3 rounded-full font-semibold text-lg transition duration-300 ease-in-out transform hover:scale-105 text-center"
+              >
+                View Tour Dates
+              </a>
+              <a
+                href="/music"
+                className="bg-zinc-800 text-zinc-100 hover:bg-zinc-700 dark:bg-zinc-700 dark:hover:bg-zinc-600 px-8 py-3 rounded-full font-semibold text-lg transition duration-300 ease-in-out transform hover:scale-105 text-center"
+              >
+                Listen Now
+              </a>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="md:w-1/3 flex justify-center"
+          >
+            <div className="relative w-64 h-64 md:w-80 md:h-80">
+              <img
+                src={Logo}
+                alt="Stage Fright Logo"
+                layout="fill"
+                objectfit="contain"
+                className="rounded-full"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LatestRelease() {
+  return (
+    <section className="relative dark:bg-zinc-700 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-8 text-center">
+          Latest Release
+        </h2>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+          <img
+            src="/placeholder.svg?height=300&width=300"
+            alt="Album Cover"
+            className="w-64 h-64 object-cover rounded-lg shadow-lg"
+          />
+          <div className="text-center md:text-left">
+            <h3 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+              Neon Nights
+            </h3>
+            <p className="text-zinc-600 dark:text-zinc-400 mb-4">
+              Our latest album featuring 12 electrifying tracks
+            </p>
+            <button className="bg-sky-600 text-white hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-600 px-6 py-2 rounded-full font-semibold transition duration-300 ease-in-out flex items-center justify-center gap-2">
+              <Play size={20} />
+              Listen Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function UpcomingTours() {
+  const tours = [
+    {
+      date: "July 15, 2024",
+      venue: "Rockstar Arena, New York",
+      ticketsLeft: 500,
+    },
+    {
+      date: "July 22, 2024",
+      venue: "Melody Hall, Los Angeles",
+      ticketsLeft: 250,
+    },
+    {
+      date: "August 5, 2024",
+      venue: "Harmony Stadium, Chicago",
+      ticketsLeft: 1000,
+    },
+  ];
+
+  return (
+    <section className="relative bg-zinc-100 dark:bg-zinc-800 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+        <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-8 text-center">
+          Upcoming Tours
+        </h2>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {tours.map((tour, index) => (
+            <div
+              key={index}
+              className="bg-white dark:bg-zinc-800 rounded-lg shadow-md p-6"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <Calendar className="text-sky-600 dark:text-sky-400" />
+                <span className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                  {tour.date}
+                </span>
+              </div>
+              <p className="text-zinc-600 dark:text-zinc-400 mb-4">
+                {tour.venue}
+              </p>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-zinc-500 dark:text-zinc-500">
+                  {tour.ticketsLeft} tickets left
+                </span>
+                <button className="bg-sky-600 text-white hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-600 px-4 py-2 rounded-full text-sm font-semibold transition duration-300 ease-in-out">
+                  Book Now
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MerchShowcase() {
+  const merchItems = [
+    {
+      name: "Tour T-Shirt",
+      price: "$25",
+      image: "/placeholder.svg?height=200&width=200",
+    },
+    {
+      name: "Signed Poster",
+      price: "$40",
+      image: "/placeholder.svg?height=200&width=200",
+    },
+    {
+      name: "Album Vinyl",
+      price: "$30",
+      image: "/placeholder.svg?height=200&width=200",
+    },
+  ];
+
+  return (
+    <section className="relative bg-base-100 dark:bg-zinc-700 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-8 text-center">
+          Merch Store
+        </h2>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {merchItems.map((item, index) => (
+            <div
+              key={index}
+              className="bg-white dark:bg-zinc-700 rounded-lg shadow-md overflow-hidden"
+            >
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+                  {item.name}
+                </h3>
+                <div className="flex justify-between items-center">
+                  <span className="text-zinc-600 dark:text-zinc-400">
+                    {item.price}
+                  </span>
+                  <button className="bg-sky-600 text-white hover:bg-sky-700 dark:bg-sky-500 dark:hover:bg-sky-600 px-4 py-2 rounded-full text-sm font-semibold transition duration-300 ease-in-out flex items-center gap-2">
+                    <ShoppingBag size={16} />
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

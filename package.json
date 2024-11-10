@@ -1,0 +1,13 @@
+{
+  "name": "ecoscore",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "client": "npm run dev --prefix client",
+    "server": "npm start --prefix server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
