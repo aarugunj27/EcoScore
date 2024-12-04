@@ -1,39 +1,45 @@
 const express = require("express");
-const axios = require("axios");
+const { spawn } = require("child_process");
 const router = express.Router();
 
-// POST endpoint to generate Eco Score
-router.post("/generate-eco-score", (req, res) => {
-  console.log("POST /api/generate-eco-score hit");
-  console.log("Request body:", req.body); // Log the incoming request
+router.post("/calculate-eco-score", (req, res) => {
+  const {
+    energyConsumption,
+    transportation,
+    carType,
+    recyclingRate,
+    waterUsage,
+  } = req.body;
 
-  const { positiveActions, negativeActions } = req.body;
+  // Call Python script using spawn
+  const pythonProcess = spawn("python", [
+    "./python-scripts/predict.py", // Path to your Python script
+    energyConsumption,
+    transportation,
+    carType,
+    recyclingRate,
+    waterUsage,
+  ]);
 
-  const prompt = `
-    Based on the following sustainable actions:
-    Positive: ${positiveActions}.
-    Negative: ${negativeActions}.
-    Provide a score from 1-100 (100 being the most sustainable), and personalized tips on how the user can improve their sustainability.
-  `;
+  // Collect the output from the Python script
+  pythonProcess.stdout.on("data", (data) => {
+    // The output from the script will be in data (it's a Buffer object, so convert it to string)
+    const ecoScore = data.toString().trim(); // Ensure no extra spaces or newlines
+    res.json({ ecoScore: parseFloat(ecoScore) });
+  });
 
-  axios({
-    url:
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" +
-      process.env.GOOGLE_GEMINI_API_KEY,
-    method: "post",
-    data: {
-      contents: [{ parts: [{ text: prompt }] }],
-    },
-  })
-    .then((response) => {
-      const rawResponse = response.data.candidates[0].content.parts[0].text;
-      const cleanedResponse = rawResponse.replace(/##|\*\*/g, ""); // Clean symbols
-      res.json({ scoreAndTips: cleanedResponse });
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).json({ error: "Failed to generate Eco Score" });
-    });
+  // Handle any errors
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+    res.status(500).send("Error processing the request");
+  });
+
+  pythonProcess.on("close", (code) => {
+    if (code !== 0) {
+      console.log(`Python script exited with code ${code}`);
+      res.status(500).send("Error processing the request");
+    }
+  });
 });
 
 module.exports = router;

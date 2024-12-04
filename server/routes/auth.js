@@ -1,5 +1,4 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const db = require("../models/db");
 const { sendVerificationEmail } = require("./email");
@@ -8,8 +7,6 @@ const crypto = require("crypto");
 const router = express.Router();
 
 require("dotenv").config();
-
-const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post("/signup", (req, res) => {
   const { name, email, password } = req.body;

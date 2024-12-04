@@ -37,7 +37,7 @@ db.connect((err) => {
           email VARCHAR(255) NOT NULL UNIQUE,
           password VARCHAR(255) NOT NULL,
           isVerified TINYINT DEFAULT 0 CHECK (isVerified IN (0, 1)),
-          verificaitonToken VARCHAR(32)
+          verificationToken VARCHAR(32)
         );
       `;
 
