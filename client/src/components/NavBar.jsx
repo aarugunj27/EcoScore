@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Avatar,
-  Dropdown,
-  Navbar,
-  DarkThemeToggle,
-  Button,
-} from "flowbite-react";
+import { Avatar, Dropdown, Navbar, DarkThemeToggle } from "flowbite-react";
 import { Link } from "react-router-dom";
 
 import Logo from "../assets/images/logo1.webp";
@@ -17,11 +11,15 @@ function NavBar() {
   useEffect(() => {
     // Function to check localStorage for user data
     const checkLoginStatus = () => {
-      const loggedInUser = localStorage.getItem("user");
-      if (loggedInUser) {
+      const token = localStorage.getItem("token"); // Get token
+      const loggedInUser = localStorage.getItem("user"); // Get user data
+
+      if (token && loggedInUser) {
+        console.log("User data found:", loggedInUser); // Log user data for debugging
         setIsLoggedIn(true);
         setUserData(JSON.parse(loggedInUser)); // Parse user data
       } else {
+        console.log("No user data found in localStorage."); // Log if no user data
         setIsLoggedIn(false);
         setUserData(null);
       }
@@ -41,9 +39,10 @@ function NavBar() {
 
   const handleLogout = () => {
     localStorage.removeItem("user"); // Clear user data on logout
+    localStorage.removeItem("token"); // Remove JWT token
     setIsLoggedIn(false);
     setUserData(null); // Reset user data
-    window.location.reload();
+    window.location.reload(); // Reload the page to update UI
   };
 
   return (

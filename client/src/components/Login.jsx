@@ -9,6 +9,7 @@ function Login() {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false); // Added loading state
   const navigate = useNavigate();
 
   const handleInput = (event) => {
@@ -20,7 +21,7 @@ function Login() {
 
   const validate = () => {
     let tempErrors = {};
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!values.email) {
       tempErrors.email = "Email is required";
@@ -33,42 +34,42 @@ function Login() {
     }
 
     setErrors(tempErrors);
-    return Object.keys(tempErrors).length === 0; // Return true if no errors
+    return Object.keys(tempErrors).length === 0;
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validate()) {
+      setLoading(true); // Set loading state to true
       axios
         .post("http://localhost:5000/auth/login", values)
         .then((res) => {
+          setLoading(false); // End loading state
           if (res.data.message === "Success") {
-            localStorage.setItem(
-              "user",
-              JSON.stringify({ email: values.email })
-            );
+            const token = res.data.token;
+            const user = res.data.userData; // Accessing userData instead of user
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user)); // Now saving the user data correctly
+            console.log("Token and user saved in localStorage:", token, user);
             navigate("/"); // Redirect to homepage
-            window.location.href = "/"; // Reload to update navbar
+            window.location.href = "/";
           }
         })
         .catch((err) => {
+          setLoading(false); // End loading state
           if (err.response) {
-            // Handle invalid email or password errors
             if (err.response.status === 401) {
               const errorMessage = err.response.data.message;
-              if (errorMessage === "Email not found") {
-                setErrors((prevErrors) => ({
-                  ...prevErrors,
-                  email: "Email not found",
-                }));
-              } else if (errorMessage === "Invalid password") {
-                setErrors((prevErrors) => ({
-                  ...prevErrors,
-                  password: "Invalid password",
-                }));
-              }
+              setErrors((prevErrors) => ({
+                ...prevErrors,
+                [errorMessage.includes("Email") ? "email" : "password"]:
+                  errorMessage,
+              }));
             } else {
-              alert("An error occurred during login.");
+              setErrors((prevErrors) => ({
+                ...prevErrors,
+                general: "An error occurred during login.",
+              }));
             }
           }
         });
@@ -84,6 +85,10 @@ function Login() {
         <h2 className="text-3xl font-semibold text-zinc-800 dark:text-zinc-100 text-center mb-6">
           Login
         </h2>
+
+        {errors.general && (
+          <span className="text-red-500">{errors.general}</span>
+        )}
 
         <div>
           <label
@@ -129,11 +134,11 @@ function Login() {
 
         <button
           type="submit"
-          className="w-full bg-zinc-600 dark:bg-zinc-500 text-zinc-100 dark:text-zinc-900 px-4 py-2 rounded-lg hover:bg-zinc-500 dark:hover:bg-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-500 dark:focus:ring-zinc-400 transition duration-300"
+          className="w-full py-2 bg-zinc-900 dark:bg-zinc-500 text-white rounded-lg hover:bg-zinc-700 dark:hover:bg-zinc-400 transition duration-300"
+          disabled={loading} // Disable button when loading
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
-
         <p className="text-center text-zinc-600 dark:text-zinc-300">
           Don't have an account?{" "}
           <a

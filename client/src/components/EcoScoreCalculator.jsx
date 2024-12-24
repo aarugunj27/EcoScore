@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"; // Don't forget to import axios
 
 const EcoScoreForm = () => {
   const [formData, setFormData] = useState({
@@ -36,22 +37,56 @@ const EcoScoreForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("/api/calculate-eco-score", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    if (!validateForm()) return;
+
+    try {
+      // POST request to calculate eco score
+      const response = await axios.post("/api/calculate-eco-score", {
         energyConsumption: formData.energyConsumption,
         transportation: formData.transportation,
         carType: formData.carType,
         recyclingRate: formData.recyclingRate,
         waterUsage: formData.waterUsage,
-      }),
-    });
+      });
 
-    const data = await response.json();
-    setEcoScore(data.ecoScore);
+      if (response.status === 200) {
+        const data = response.data;
+        setEcoScore(data.ecoScore);
+
+        // Save the eco score after calculation
+        await saveEcoScore(data.ecoScore);
+      } else {
+        setEcoScore(null);
+        alert("Error calculating eco score. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error connecting to the server. Please try again later.");
+    }
+  };
+
+  // Save eco score to the server
+  const saveEcoScore = async (ecoScore) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/save-eco-score",
+        { score: ecoScore },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Use the token stored in localStorage
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        console.log("Eco score saved successfully:", response.data);
+      } else {
+        alert("Error saving eco score. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error saving eco score:", err);
+      alert("Error saving eco score. Please try again.");
+    }
   };
 
   const handleChange = (e) => {
