@@ -9,29 +9,23 @@ function NavBar() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    // Function to check localStorage for user data
     const checkLoginStatus = () => {
-      const token = localStorage.getItem("token"); // Get token
-      const loggedInUser = localStorage.getItem("user"); // Get user data
+      const token = localStorage.getItem("token");
+      const loggedInUser = localStorage.getItem("user");
 
       if (token && loggedInUser) {
-        console.log("User data found:", loggedInUser); // Log user data for debugging
         setIsLoggedIn(true);
-        setUserData(JSON.parse(loggedInUser)); // Parse user data
+        setUserData(JSON.parse(loggedInUser));
       } else {
-        console.log("No user data found in localStorage."); // Log if no user data
         setIsLoggedIn(false);
         setUserData(null);
       }
     };
 
-    // Check login status on mount
     checkLoginStatus();
 
-    // Listen for localStorage changes across tabs/windows
     window.addEventListener("storage", checkLoginStatus);
 
-    // Cleanup listener on unmount
     return () => {
       window.removeEventListener("storage", checkLoginStatus);
     };

@@ -60,7 +60,6 @@ const EcoScoreForm = () => {
         alert("Error calculating eco score. Please try again.");
       }
     } catch (error) {
-      console.error(error);
       alert("Error connecting to the server. Please try again later.");
     }
   };
@@ -73,18 +72,16 @@ const EcoScoreForm = () => {
         { score: ecoScore },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Use the token stored in localStorage
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
 
       if (response.status === 201) {
-        console.log("Eco score saved successfully:", response.data);
       } else {
         alert("Error saving eco score. Please try again.");
       }
     } catch (err) {
-      console.error("Error saving eco score:", err);
       alert("Error saving eco score. Please try again.");
     }
   };

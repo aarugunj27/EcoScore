@@ -28,12 +28,19 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/" element={<Home />} />
         <Route path="/tracker" element={<TrackerPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/settings" element={<Settings />} />
         <Route path="/email-confirmation" element={<EmailConfirmation />} />
         <Route
           path="/auth/verify-email/:verificationToken"

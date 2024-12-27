@@ -9,7 +9,7 @@ function Login() {
   });
 
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false); // Added loading state
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleInput = (event) => {

@@ -6,7 +6,6 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch saved Eco Scores from the backend
     axios
       .get("http://localhost:5000/api/get-eco-scores", {
         headers: {

@@ -50,7 +50,6 @@ router.post("/calculate-eco-score", (req, res) => {
 
     return res.json({ ecoScore: parseFloat(ecoScore.toFixed(2)) });
   } catch (error) {
-    console.error("Error calculating Eco Score:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -65,7 +64,6 @@ router.post("/save-eco-score", (req, res) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.userID; // This should contain the user ID from the token
-    console.log("User ID from token:", userId); // Log the user ID to check if it's valid
 
     if (!userId) {
       return res.status(400).json({ message: "User ID not found in token" });
@@ -75,13 +73,11 @@ router.post("/save-eco-score", (req, res) => {
     const sql = "INSERT INTO eco_scores (user_id, score) VALUES (?, ?)";
     db.query(sql, [userId, score], (err) => {
       if (err) {
-        console.error("Error saving Eco Score:", err);
         return res.status(500).json({ message: "Database error" });
       }
       return res.status(201).json({ message: "Eco score saved successfully" });
     });
   } catch (err) {
-    console.error("Error verifying token:", err);
     return res.status(401).json({ message: "Invalid or expired token" });
   }
 });
@@ -105,14 +101,12 @@ router.get("/get-eco-scores", (req, res) => {
     const sql = "SELECT score, created_at FROM eco_scores WHERE user_id = ?";
     db.query(sql, [userId], (err, results) => {
       if (err) {
-        console.error("Error retrieving Eco Scores:", err);
         return res.status(500).json({ message: "Database error" });
       }
 
       return res.status(200).json({ ecoScores: results });
     });
   } catch (err) {
-    console.error("Error verifying token:", err);
     return res.status(401).json({ message: "Invalid or expired token" });
   }
 });

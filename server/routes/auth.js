@@ -30,7 +30,6 @@ router.post("/signup", (req, res) => {
         [name, email, hashedPassword, 0, verificationToken],
         (err) => {
           if (err) {
-            console.error("Error creating user:", err);
             return res.status(500).json({ message: "Database error" });
           }
 
@@ -41,7 +40,6 @@ router.post("/signup", (req, res) => {
         }
       );
     } catch (error) {
-      console.error("Error hashing password:", error);
       res.status(500).json({ message: "Server error" });
     }
   });
@@ -58,7 +56,6 @@ router.post("/verify-email/:verificationToken", async (req, res) => {
       [verificationToken],
       (err, results) => {
         if (err) {
-          console.error("Database error:", err);
           return res.status(500).json({ message: "Database error." });
         }
 
@@ -74,7 +71,6 @@ router.post("/verify-email/:verificationToken", async (req, res) => {
           [verificationToken],
           (updateErr) => {
             if (updateErr) {
-              console.error("Error updating verification status:", updateErr);
               return res
                 .status(500)
                 .json({ message: "Error updating status." });
@@ -88,7 +84,6 @@ router.post("/verify-email/:verificationToken", async (req, res) => {
       }
     );
   } catch (error) {
-    console.error("Internal server error:", error);
     res.status(500).json({ message: "Internal server error." });
   }
 });
@@ -122,6 +117,21 @@ router.post("/login", (req, res) => {
 
     const { password: _, ...userData } = user;
     res.status(200).json({ message: "Success", token, userData });
+  });
+});
+
+router.post("/delete-account", (req, res) => {
+  const { email } = req.body;
+
+  const sql = "DELETE FROM login WHERE email = ?";
+  db.query(sql, [email], (err, results) => {
+    if (err) return res.status(500).json({ message: "Database error" });
+
+    if (results.affectedRows === 0) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    res.status(200).json({ message: "Success" });
   });
 });
 

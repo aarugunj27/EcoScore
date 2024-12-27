@@ -15,10 +15,9 @@ function VerifyEmail() {
       );
       if (response.data.message === "Email successfully verified.") {
         setStatus("success");
-        setTimeout(() => navigate("/login"), 2000); // Redirect after success
+        setTimeout(() => navigate("/login"), 2000);
       }
     } catch (error) {
-      console.error("Verification failed:", error);
       setStatus("error");
     }
   };
