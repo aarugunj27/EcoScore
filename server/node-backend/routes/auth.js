@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const db = require("../node-backend/models/db");
+const db = require("../models/db");
 const { sendVerificationEmail } = require("./email");
 require("dotenv").config();
 

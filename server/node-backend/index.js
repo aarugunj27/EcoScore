@@ -10,8 +10,8 @@ app.use(cors());
 app.use(express.json()); // for parsing application/json
 
 // Import the EcoScore and Auth routes
-const ecoScoreRoutes = require("server/node-backend/routes/ecoScore");
-const AccountRoutes = require("server/node-backend/routes/auth");
+const ecoScoreRoutes = require("./routes/ecoScore");
+const AccountRoutes = require("./routes/auth");
 
 // Use the routes
 app.use("/api", ecoScoreRoutes);

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../node-backend/models/db");
+const db = require("../models/db");
 const jwt = require("jsonwebtoken");
 
 // Calculate Eco Score

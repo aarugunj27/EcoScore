@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "client": "npm run dev --prefix client",
-    "server": "npm start --prefix server",
+    "server": "npm start --prefix server\\node-backend",
     "start": "concurrently \"npm run client\" \"npm run server\""
   },
   "keywords": [],
