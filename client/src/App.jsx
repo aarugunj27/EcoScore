@@ -13,6 +13,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Settings from "./pages/settings";
 import VerifyEmail from "./components/VerifyEmail";
 import EmailConfirmation from "./components/EmailConfirmation";
+import ImageUpload from "./pages/upload";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/upload" element={<ImageUpload />} />
         <Route path="/email-confirmation" element={<EmailConfirmation />} />
         <Route
           path="/auth/verify-email/:verificationToken"

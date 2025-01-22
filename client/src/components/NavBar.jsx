@@ -109,6 +109,12 @@ function NavBar() {
         >
           Contact
         </Navbar.Link>
+        <Navbar.Link
+          href="/upload"
+          className="relative text-zinc-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-400 transition-opacity after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[2px] after:bg-zinc-900 dark:after:bg-zinc-400 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:ease-out"
+        >
+          Upload
+        </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
