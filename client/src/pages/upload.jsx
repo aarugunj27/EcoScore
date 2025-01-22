@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+const Model = process.env.REACT_APP_Model_URL;
+
 const ImageUpload = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [prediction, setPrediction] = useState(null);
@@ -27,7 +29,7 @@ const ImageUpload = () => {
     setLoading(true); // Start loading
 
     try {
-      const response = await fetch("http://localhost:5001/predict", {
+      const response = await fetch(`${Model}`, {
         method: "POST",
         body: formData,
       });

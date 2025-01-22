@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const Api = process.env.REACT_APP_API_URL;
+
 function Dashboard() {
   const [ecoScores, setEcoScores] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/get-eco-scores", {
+      .get(`${Api}/get-eco-scores`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

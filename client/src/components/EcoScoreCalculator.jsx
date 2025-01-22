@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios"; // Don't forget to import axios
+import axios from "axios";
+
+const Api = process.env.REACT_APP_API_URL;
 
 const EcoScoreForm = () => {
   const [formData, setFormData] = useState({
@@ -41,7 +43,7 @@ const EcoScoreForm = () => {
 
     try {
       // POST request to calculate eco score
-      const response = await axios.post("/api/calculate-eco-score", {
+      const response = await axios.post(`${Api}/calculate-eco-score`, {
         energyConsumption: formData.energyConsumption,
         transportation: formData.transportation,
         carType: formData.carType,

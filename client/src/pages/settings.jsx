@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const Auth = process.env.REACT_APP_Auth_URL;
+
 function Settings() {
   const [values, setValues] = useState({
     email: "",
@@ -42,7 +44,7 @@ function Settings() {
     if (validate()) {
       setLoading(true);
       axios
-        .post("http://localhost:5000/auth/delete-account", values)
+        .post(`${Auth}/delete-account`, values)
         .then((res) => {
           setLoading(false);
           console.log("API Response:", res.data);

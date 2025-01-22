@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const Auth = process.env.REACT_APP_Auth_URL;
+
 function Login() {
   const [values, setValues] = useState({
     email: "",
@@ -42,7 +44,7 @@ function Login() {
     if (validate()) {
       setLoading(true); // Set loading state to true
       axios
-        .post("http://localhost:5000/auth/login", values)
+        .post(`${Auth}/login`, values)
         .then((res) => {
           setLoading(false); // End loading state
           if (res.data.message === "Success") {

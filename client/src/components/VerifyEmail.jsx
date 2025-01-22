@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
+const Auth = process.env.REACT_APP_Auth_URL;
+
 function VerifyEmail() {
   const { verificationToken } = useParams();
   const navigate = useNavigate();
@@ -11,7 +13,7 @@ function VerifyEmail() {
     try {
       setStatus("loading");
       const response = await axios.post(
-        `http://localhost:5000/auth/verify-email/${verificationToken}`
+        `${Auth}/verify-email/${verificationToken}`
       );
       if (response.data.message === "Email successfully verified.") {
         setStatus("success");

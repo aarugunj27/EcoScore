@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const Auth = process.env.REACT_APP_Auth_URL;
+
 function Signup() {
   const [values, setValues] = useState({
     name: "",
@@ -58,7 +60,7 @@ function Signup() {
     event.preventDefault();
     if (validate()) {
       axios
-        .post("http://localhost:5000/auth/signup", values)
+        .post(`${Auth}/signup`, values)
         .then((res) => {
           if (res.data.message === "User created, verification email sent") {
             // Store user email temporarily

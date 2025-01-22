@@ -34,7 +34,7 @@ except Exception as e:
     print(f"Error loading model: {e}")
     model = None
 
-@app.route('/predict', methods=['POST'])
+@app.route('/', methods=['POST'])
 def predict():
     """
     Endpoint to predict the class of an uploaded waste image.
