@@ -23,6 +23,7 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 # Download and load the model
+model = None
 try:
     model_path = tempfile.NamedTemporaryFile(delete=False, suffix=".h5").name
     print("Downloading model from Google Drive...")
@@ -30,6 +31,8 @@ try:
     model = load_model(model_path)
     print("Model loaded successfully.")
     os.remove(model_path)  # Clean up temp file
+except gdown.errors.RequestError as e:
+    print(f"Error downloading model: {e}")
 except Exception as e:
     print(f"Error loading model: {e}")
     model = None
