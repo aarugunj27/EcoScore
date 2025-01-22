@@ -1,39 +1,40 @@
-const mysql = require("mysql");
+const { Client } = require("pg"); // Use the pg client for PostgreSQL
 require("dotenv").config();
 
-// Set up the database connection using createConnection for XAMPP
-const db = mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
-  database: "signup", // Ensure this matches your database name
+// Set up the database connection using pg
+const db = new Client({
+  host: process.env.DB_HOST || "localhost", // Replace with the Render host if using their PostgreSQL
+  port: process.env.DB_PORT || 5432, // Default PostgreSQL port (can be overridden in the Render environment)
+  user: process.env.DB_USER || "postgres", // PostgreSQL default username
+  password: process.env.DB_PASSWORD || "", // Password from Render or your local environment
+  database: process.env.DB_NAME || "signup", // Make sure the database name is correct
 });
 
-// Connect to the MySQL database
+// Connect to the PostgreSQL database
 db.connect((err) => {
   if (err) {
-    console.error("Error connecting to MySQL:", err);
+    console.error("Error connecting to PostgreSQL:", err);
     process.exit(1);
   }
-  console.log("Connected to MySQL!");
+  console.log("Connected to PostgreSQL!");
 });
 
 // Create the tables (login and eco_scores) if they don't exist
 const createTables = () => {
   const createLoginTableQuery = `
     CREATE TABLE IF NOT EXISTS login (
-      id INT AUTO_INCREMENT PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL UNIQUE,
       password VARCHAR(255) NOT NULL,
-      isVerified TINYINT DEFAULT 0 CHECK (isVerified IN (0, 1)),
+      isVerified BOOLEAN DEFAULT FALSE,
       verificationToken VARCHAR(32)
     );
   `;
 
   const createEcoScoreTableQuery = `
     CREATE TABLE IF NOT EXISTS eco_scores (
-      id INT AUTO_INCREMENT PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       user_id INT NOT NULL,
       score FLOAT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
