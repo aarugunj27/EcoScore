@@ -3,11 +3,7 @@ require("dotenv").config();
 
 // Set up the database connection using pg
 const db = new Client({
-  host: process.env.DB_HOST || "localhost", // Replace with the Render host if using their PostgreSQL
-  port: process.env.DB_PORT || 5432, // Default PostgreSQL port (can be overridden in the Render environment)
-  user: process.env.DB_USER || "postgres", // PostgreSQL default username
-  password: process.env.DB_PASSWORD || "", // Password from Render or your local environment
-  database: process.env.DB_NAME || "signup", // Make sure the database name is correct
+  connectionString: process.env.DATABASE_URL,
 });
 
 // Connect to the PostgreSQL database
