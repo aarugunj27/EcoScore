@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Auth = process.env.REACT_APP_Auth_URL;
+const Auth = import.meta.env.VITE_Auth_URL;
 
 function Signup() {
   const [values, setValues] = useState({

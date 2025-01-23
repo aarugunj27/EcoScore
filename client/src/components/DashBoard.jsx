@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Api = process.env.REACT_APP_API_URL;
+const Api = import.meta.env.VITE_API_URL;
 
 function Dashboard() {
   const [ecoScores, setEcoScores] = useState([]);

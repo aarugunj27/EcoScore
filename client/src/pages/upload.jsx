@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Model = process.env.REACT_APP_Model_URL;
+const Model = import.meta.env.VITE_Model_URL;
 
 const ImageUpload = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -29,7 +29,7 @@ const ImageUpload = () => {
     setLoading(true); // Start loading
 
     try {
-      const response = await fetch(`${Model}/`, {
+      const response = await fetch(`${Model}`, {
         method: "POST",
         body: formData,
       });
