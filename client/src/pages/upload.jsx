@@ -32,6 +32,9 @@ const ImageUpload = () => {
       const response = await fetch(`${Model}`, {
         method: "POST",
         body: formData,
+        headers: {
+          "Access-Control-Allow-Origin": "https://ecoscore-nrhg.onrender.com",
+        },
       });
 
       const data = await response.json();
