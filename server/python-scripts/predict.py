@@ -6,7 +6,7 @@ import numpy as np
 import os
 from werkzeug.utils import secure_filename
 
-# Load your .h5 model
+# Load your .h5 model (adjust the path if needed)
 model = load_model('waste_classification_model.h5')
 
 app = Flask(__name__)
@@ -14,6 +14,13 @@ CORS(app)
 
 # Define the class names
 class_names = ['cardboard', 'glass', 'metal', 'organic', 'paper', 'plastic', 'trash']
+
+# Set the upload folder to '/tmp' for Render or similar platforms
+UPLOAD_FOLDER = '/tmp/uploads'  # Change this to '/tmp' or a similar location
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -26,9 +33,9 @@ def predict():
         if file.filename == '':
             return jsonify({"error": "No file selected"}), 400
 
-        # Save the file securely to a temporary location
+        # Save the file securely to the defined folder
         filename = secure_filename(file.filename)
-        file_path = os.path.join('uploads', filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
 
         # Load and preprocess the image
@@ -58,7 +65,4 @@ def predict():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    # Create uploads directory if it doesn't exist
-    if not os.path.exists('uploads'):
-        os.makedirs('uploads')
     app.run(port=5001)
