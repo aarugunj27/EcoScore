@@ -6,23 +6,24 @@ import numpy as np
 import os
 from werkzeug.utils import secure_filename
 
-# Load your .h5 model
-model = load_model('waste_classification_model.h5')
-
+# Initialize Flask app
 app = Flask(__name__)
 
-# Add the CORS middleware
-CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins, or specify a domain here
+# Add CORS middleware
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Define the class names
 class_names = ['cardboard', 'glass', 'metal', 'organic', 'paper', 'plastic', 'trash']
 
-# Set the upload folder to '/tmp' for Render or similar platforms
+# Set the upload folder (for Render or similar platforms)
 UPLOAD_FOLDER = '/tmp/uploads'  # Change this to '/tmp' or a similar location
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Load your .h5 model only once when the app starts
+model = load_model('waste_classification_model.h5')  # Model loaded once
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -45,7 +46,7 @@ def predict():
         img_array = image.img_to_array(img) / 255.0
         img_array = np.expand_dims(img_array, axis=0)
 
-        # Predict the class
+        # Predict the class using the cached model
         prediction = model.predict(img_array)
         predicted_class = np.argmax(prediction)
         predicted_prob = float(prediction[0][predicted_class]) * 100
