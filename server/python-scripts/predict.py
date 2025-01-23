@@ -11,8 +11,8 @@ model = load_model('waste_classification_model.h5')
 
 app = Flask(__name__)
 
-# Allow CORS for your frontend domain
-CORS(app, resources={r"/predict": {"origins": "https://ecoscore-oeyh.onrender.com"}})
+# Add the CORS middleware
+CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins, or specify a domain here
 
 # Define the class names
 class_names = ['cardboard', 'glass', 'metal', 'organic', 'paper', 'plastic', 'trash']
@@ -24,19 +24,8 @@ if not os.path.exists(UPLOAD_FOLDER):
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.after_request
-def after_request(response):
-    response.headers['Access-Control-Allow-Origin'] = 'https://ecoscore-oeyh.onrender.com'  # Your frontend URL
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-    return response
-
-@app.route('/predict', methods=['POST', 'OPTIONS'])
+@app.route('/predict', methods=['POST'])
 def predict():
-    if request.method == 'OPTIONS':
-        # Handle preflight request
-        return jsonify({})
-
     try:
         # Check if an image file is included in the request
         if 'file' not in request.files:
