@@ -6,11 +6,13 @@ import numpy as np
 import os
 from werkzeug.utils import secure_filename
 
-# Load your .h5 model (adjust the path if needed)
+# Load your .h5 model
 model = load_model('waste_classification_model.h5')
 
 app = Flask(__name__)
-CORS(app)
+
+# Allow CORS for your frontend domain
+CORS(app, resources={r"/predict": {"origins": "https://ecoscore-oeyh.onrender.com"}})
 
 # Define the class names
 class_names = ['cardboard', 'glass', 'metal', 'organic', 'paper', 'plastic', 'trash']
