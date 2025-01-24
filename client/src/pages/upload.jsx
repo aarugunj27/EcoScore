@@ -29,7 +29,7 @@ const ImageUpload = () => {
     setLoading(true); // Start loading
 
     try {
-      const response = await fetch(`${Model}`, {
+      const response = await fetch("http://10.24.193.70:7860", {
         method: "POST",
         body: formData,
         headers: {
