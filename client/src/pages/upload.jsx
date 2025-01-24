@@ -29,7 +29,7 @@ const ImageUpload = () => {
     setLoading(true); // Start loading
 
     try {
-      const response = await fetch("http://10.24.193.70:7860", {
+      const response = await fetch("https://b73e-96-245-254-202.ngrok-free.app/predict", {
         method: "POST",
         body: formData,
         headers: {
